@@ -1,0 +1,62 @@
+.main {
+  @apply flex min-h-screen flex-col items-center justify-between relative text-[#a9a9a9] bg-[#191919];
+}
+
+.introduction--container {
+  @apply relative flex w-full justify-end items-end;
+  height: calc(1200px + 100vh);
+  height: calc(1200px + 100dvh);
+}
+
+.socials-container {
+  @apply grid justify-items-center gap-3 grid-flow-col;
+}
+
+.socials-container > a > svg {
+  @apply text-[1.25rem];
+}
+
+.socials-container > a {
+  @apply opacity-100 transition-opacity duration-300;
+}
+
+.btn-scroll {
+  @apply fixed top-[65%] select-none left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 text-center grid gap-2 justify-items-center;
+}
+
+.model-canvas {
+  @apply top-0 left-0 w-full transition-opacity duration-1000 bg-[#191919] opacity-100;
+  position: fixed !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+}
+
+.video-section {
+  @apply text-4xl w-full bg-white h-[200px] flex justify-center items-center transition-opacity duration-500 opacity-0 relative pointer-events-none;
+}
+
+.video {
+  @apply fixed object-cover w-full h-full top-0 left-0 transition-opacity duration-500 pointer-events-none;
+}
+
+.video-caption {
+  @apply select-none fixed text-xl min-w-[13.875rem] sm:text-4xl font-earthOrbiter tracking-widest left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center px-3 transition-opacity duration-500;
+}
+
+.proxy-last-section {
+  @apply w-full h-[6.25rem] opacity-0;
+}
+
+.main-section {
+  @apply fixed text-[#191919] transition-opacity duration-500 w-full opacity-0 flex justify-center items-center z-40 top-0 left-0 bg-[#aaaaaa] pointer-events-none;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.details-container {
+  @apply grid gap-2 justify-items-center;
+}
+
+.logo {
+  @apply text-5xl font-earthOrbiter tracking-widest select-none;
+}
