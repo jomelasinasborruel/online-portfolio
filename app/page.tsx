@@ -20,6 +20,7 @@ import cx from "./MainPage.module.scss";
 
 const Home = () => {
   const [scrollTop, setScrollTop] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSectionRef, videoSectionInviewRef] = useInView();
   const [mainRef, mainInview] = useInView({
@@ -30,12 +31,16 @@ const Home = () => {
   const handleScroll = () => {
     zenScroll.toY(1100, 2000);
     delay(() => {
+      zenScroll.toY(1200, 500);
+    }, 3000);
+    delay(() => {
       zenScroll.toY(window.scrollY + window.innerHeight, 1000);
-    }, 4000);
+    }, 4700);
   };
 
   useEffect(() => {
     const handleScoll = () => {
+      setScrollY(window.scrollY);
       if (window.scrollY > 1600 || window.scrollY < 0) return;
       setScrollTop(0.314 * (window.scrollY / 100));
     };
@@ -60,15 +65,13 @@ const Home = () => {
             "!opacity-0": videoSectionInviewRef || mainInview,
           })}
         >
-          <Suspense fallback={null}>
-            <ambientLight />
-            <Model scrollTop={scrollTop} />
-          </Suspense>
+          <ambientLight />
+          <Model scrollTop={scrollTop} />
         </Canvas>
         <button
           onClick={handleScroll}
           className={clsx(cx["btn-scroll"], {
-            "!opacity-0": videoSectionInviewRef,
+            "!opacity-0": scrollY > 200,
           })}
         >
           <p>Click to scroll</p>
@@ -92,7 +95,20 @@ const Home = () => {
             src="https://res.cloudinary.com/jmcloudname/video/upload/f_auto:video,q_auto/v1/online-portfolio/videos/v9xldgfnoau5kpmzv6uk"
           />
           <p className={clsx(cx["video-caption"])}>
-            Rest in reason, <span className="text-white">move in passion.</span>
+            <span
+              className={clsx("transition-colors duration-500", {
+                "text-white": scrollY >= 1100 && scrollY < 1200,
+              })}
+            >
+              Rest in reason,
+            </span>{" "}
+            <span
+              className={clsx("transition-colors duration-500", {
+                "text-white": scrollY >= 1200 && scrollY < 1300,
+              })}
+            >
+              move in passion.
+            </span>
           </p>
         </div>
       </div>

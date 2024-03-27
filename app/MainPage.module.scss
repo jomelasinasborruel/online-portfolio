@@ -9,7 +9,7 @@
 }
 
 .socials-container {
-  @apply grid justify-items-center gap-3 grid-flow-col;
+  @apply grid justify-items-center gap-3 grid-flow-col pt-2 border-t border-[#191919];
 }
 
 .socials-container > a > svg {
