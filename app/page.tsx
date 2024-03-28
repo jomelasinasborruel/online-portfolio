@@ -95,9 +95,13 @@ const Home = () => {
         <Marquee
           autoFill
           className="!fixed w-full h-screen top-0 left-0 opacity-5 select"
-          speed={5}
+          speed={10}
         >
-          <p className={cx["marquee-text"]}>GLASSES </p>
+          <p className={clsx(cx["marquee-text"])}>
+            {"ASSESGL".split("").map((letter, index) => (
+              <span key={index}>{letter}</span>
+            ))}
+          </p>
         </Marquee>
 
         <Canvas
