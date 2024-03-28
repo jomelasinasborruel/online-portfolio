@@ -6,7 +6,8 @@ import * as THREE from "three";
 import React, { useEffect, useRef, useState } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
-
+import { motion } from "framer-motion-3d";
+import { Variants } from "framer-motion";
 type GLTFResult = GLTF & {
   nodes: {
     Cube002: THREE.Mesh;
@@ -22,9 +23,18 @@ export function Model(
   const { nodes, materials } = useGLTF("/glasses.gltf") as GLTFResult;
   const scale = (4 + (props.scrollTop / 0.314) * 6) / 100;
 
+  const variants: Variants | undefined = {
+    hidden: { y: 0.5, rotateX: 0.5 },
+    visible: { y: 0, rotateX: 0, transition: { bounce: 0.5, type: "spring" } },
+    hover: { z: 1 },
+  };
+
   return (
     <group {...props} dispose={null}>
-      <mesh
+      <motion.mesh
+        initial="hidden"
+        animate="visible"
+        variants={variants}
         castShadow
         receiveShadow
         material-color="white"

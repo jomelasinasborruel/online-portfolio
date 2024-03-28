@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Link from "next/link";
 // Components
@@ -17,12 +17,15 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 // Styles
 import cx from "./MainPage.module.scss";
+import { useProgress } from "@react-three/drei";
+import ReactLoading from "react-loading";
 
 const Home = () => {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSectionRef, videoSectionInviewRef] = useInView();
+  const loadingProgress = useProgress();
   const [mainRef, mainInview] = useInView({
     threshold: 1,
   });
@@ -37,23 +40,52 @@ const Home = () => {
       zenScroll.toY(window.scrollY + window.innerHeight, 1000);
     }, 4700);
   };
+  const handleScoll = () => {
+    setScrollY(window.scrollY);
+    if (window.scrollY > 1600 || window.scrollY < 0) return;
+    setScrollTop(0.314 * (window.scrollY / 100));
+  };
+
+  // const renderGlassModel = (
+  //   <React.Fragment>
+  //     <Canvas
+  //       id="glasses-canvas"
+  //       className={clsx(cx["model-canvas"], {
+  //         "!opacity-0": videoSectionInviewRef || mainInview,
+  //       })}
+  //     >
+  //       <Suspense fallback={null}>
+  //         <ambientLight />
+  //         <Model scrollTop={scrollTop} />
+  //       </Suspense>
+  //     </Canvas>
+  //   </React.Fragment>
+  // );
 
   useEffect(() => {
-    const handleScoll = () => {
-      setScrollY(window.scrollY);
-      if (window.scrollY > 1600 || window.scrollY < 0) return;
-      setScrollTop(0.314 * (window.scrollY / 100));
-    };
-
-    document.addEventListener("scroll", handleScoll);
+    window.addEventListener("scroll", handleScoll);
     setScrollTop(0.314 * (window.scrollY / 100));
     scrollTo({ top: 0 });
 
-    return () => document.removeEventListener("scroll", handleScoll);
+    return () => window.removeEventListener("scroll", handleScoll);
   }, []);
 
+  // Optimizes the loading
+  if (loadingProgress.progress !== 100)
+    return (
+      <main
+        className={clsx(cx["main"], {
+          "max-h-screen overflow-hidden": loadingProgress.progress !== 100,
+        })}
+      >
+        <div className="top-1/2 left-1/2 fixed -translate-y-1/2 -translate-x-1/2 z-50">
+          <ReactLoading type="bubbles" delay={500} color="#a9a9a9" />
+        </div>
+      </main>
+    );
+
   return (
-    <main className={cx["main"]}>
+    <main className={clsx(cx["main"])}>
       <div
         className={clsx(cx["introduction--container"], {
           "pointer-events-none": mainInview,
@@ -65,9 +97,12 @@ const Home = () => {
             "!opacity-0": videoSectionInviewRef || mainInview,
           })}
         >
-          <ambientLight />
-          <Model scrollTop={scrollTop} />
+          <Suspense fallback={null}>
+            <ambientLight />
+            <Model scrollTop={scrollTop} />
+          </Suspense>
         </Canvas>
+
         <button
           onClick={handleScroll}
           className={clsx(cx["btn-scroll"], {
@@ -78,6 +113,7 @@ const Home = () => {
 
           <BsArrowBarDown />
         </button>
+
         <div
           ref={videoSectionRef}
           className={clsx(cx["video-section"], {
