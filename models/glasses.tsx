@@ -21,7 +21,7 @@ export function Model(
   props: JSX.IntrinsicElements["group"] & { scrollTop: number }
 ) {
   const { nodes, materials } = useGLTF("/glasses.gltf") as GLTFResult;
-  const scale = (4 + (props.scrollTop / 0.314) * 6) / 100;
+  const scale = (2 + (props.scrollTop / 0.314) * 6) / 100;
 
   const variants: Variants | undefined = {
     hidden: { y: 0.5, rotateX: 0.5 },

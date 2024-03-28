@@ -19,6 +19,7 @@ import { FiMail } from "react-icons/fi";
 import cx from "./MainPage.module.scss";
 import { useProgress } from "@react-three/drei";
 import ReactLoading from "react-loading";
+import Marquee from "react-fast-marquee";
 
 const Home = () => {
   const [scrollTop, setScrollTop] = useState(0);
@@ -78,7 +79,7 @@ const Home = () => {
           "max-h-screen overflow-hidden": loadingProgress.progress !== 100,
         })}
       >
-        <div className="top-1/2 left-1/2 fixed -translate-y-1/2 -translate-x-1/2 z-50">
+        <div className="top-1/2 left-1/2 fixed -translate-y-1/2 -translate-x-1/2 ">
           <ReactLoading type="bubbles" delay={500} color="#a9a9a9" />
         </div>
       </main>
@@ -88,9 +89,17 @@ const Home = () => {
     <main className={clsx(cx["main"])}>
       <div
         className={clsx(cx["introduction--container"], {
-          "pointer-events-none": mainInview,
+          "pointer-events-none": videoSectionInviewRef || mainInview,
         })}
       >
+        <Marquee
+          autoFill
+          className="!fixed w-full h-screen top-0 left-0 opacity-5 select"
+          speed={5}
+        >
+          <p className={cx["marquee-text"]}>GLASSES </p>
+        </Marquee>
+
         <Canvas
           id="glasses-canvas"
           className={clsx(cx["model-canvas"], {
@@ -106,7 +115,7 @@ const Home = () => {
         <button
           onClick={handleScroll}
           className={clsx(cx["btn-scroll"], {
-            "!opacity-0": scrollY > 200,
+            "!opacity-0 pointer-events-none": scrollY > 200,
           })}
         >
           <p>Click to scroll</p>
