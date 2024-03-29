@@ -61,15 +61,39 @@
 }
 
 .main-section {
-  @apply fixed text-[#191919] transition-opacity duration-500 w-full opacity-0 flex justify-center items-center z-40 top-0 left-0 bg-[#aaaaaa] pointer-events-none;
+  @apply fixed invisible text-[#191919] transition-opacity duration-500 w-full opacity-0 z-40 top-0 left-0 bg-[#aaaaaa] pointer-events-none;
   height: 100vh;
   height: 100dvh;
 }
 
+.main-section__wrapper {
+  @apply relative w-full h-full max-h-full overflow-y-auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: gray;
+  }
+}
+
 .details-container {
-  @apply grid gap-2 justify-items-center;
+  @apply grid gap-2 justify-items-center p-10 px-4 w-full relative;
 }
 
 .logo {
   @apply text-5xl font-earthOrbiter tracking-widest select-none;
+}
+
+.content {
+  @apply overflow-x-auto w-full;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.content-wrapper {
+  @apply grid grid-flow-col grid-rows-2 justify-items-center h-fit w-full gap-2;
 }
