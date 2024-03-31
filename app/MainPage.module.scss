@@ -9,7 +9,7 @@
 }
 
 .socials-container {
-  @apply grid justify-items-center gap-3 grid-flow-col pt-2 border-t border-[#191919];
+  @apply grid justify-items-center gap-3 grid-flow-col pt-2 border-t border-[#191919] w-fit mx-auto;
 }
 
 .socials-container > a > svg {
@@ -80,7 +80,9 @@
 }
 
 .details-container {
-  @apply grid gap-2 justify-items-center p-10 px-4 w-full relative;
+  @apply block relative;
+  // min-height: 100vh;
+  // min-height: 100dvh;
 }
 
 .logo {
@@ -88,12 +90,14 @@
 }
 
 .content {
-  @apply overflow-x-auto w-full;
+  @apply overflow-x-auto w-full mx-auto max-w-[80rem];
   &::-webkit-scrollbar {
     width: 0;
   }
 }
 
 .content-wrapper {
-  @apply grid grid-flow-col grid-rows-2 justify-items-center h-fit w-full gap-2;
+  @apply block;
 }
+
+

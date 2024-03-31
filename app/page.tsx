@@ -22,6 +22,51 @@ import { useProgress } from "@react-three/drei";
 import ReactLoading from "react-loading";
 import Marquee from "react-fast-marquee";
 
+interface NavItem {
+  key: "aboutMe" | "projects" | "logo" | "myGallery" | "devTips";
+  label: string;
+  component: React.JSX.Element;
+}
+
+const NAVITEMS: NavItem[] = [
+  {
+    key: "aboutMe",
+    label: "About Me",
+    component: (
+      <div className="pt-10">
+        <h3>What is Lorem Ipsum? </h3>
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centuries, but also the leap into electronic typesetting,
+          remaining essentially unchanged. It was popularised in the 1960s with
+          the release of Letraset sheets containing Lorem Ipsum passages, and
+          more recently with desktop publishing software like Aldus PageMaker
+          including versions of Lorem Ipsum.
+        </p>
+      </div>
+    ),
+  },
+  {
+    key: "projects",
+    label: "Projects",
+    component: <React.Fragment></React.Fragment>,
+  },
+
+  {
+    key: "myGallery",
+    label: "My Gallery",
+    component: <React.Fragment></React.Fragment>,
+  },
+  {
+    key: "devTips",
+    label: "Dev Tips",
+    component: <React.Fragment></React.Fragment>,
+  },
+];
+
 const Home = () => {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollY, setScrollY] = useState(0);
@@ -29,10 +74,11 @@ const Home = () => {
   const [videoSectionRef, videoSectionInviewRef] = useInView();
   const loadingProgress = useProgress();
   const [hasVisited, setHadVisited] = useState(false);
-  const asdRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [mainRef, mainInview] = useInView({
     threshold: 1,
   });
+  const [currentPage, setCurrentPage] = useState<NavItem["key"]>("aboutMe");
 
   const [hoveredSocial, setHoveredSocial] = useState<number>();
 
@@ -130,11 +176,11 @@ const Home = () => {
       </div>
     </div>
   );
-  console.log(asdRef.current?.clientHeight);
+
   useEffect(() => {
     window.addEventListener("scroll", handleScoll);
     setScrollTop(0.314 * (window.scrollY / 100));
-    scrollTo({ top: 0 });
+    // scrollTo({ top: 0 });
 
     return () => window.removeEventListener("scroll", handleScoll);
   }, []);
@@ -162,6 +208,7 @@ const Home = () => {
     detailsContainer: {
       y: 0,
       opacity: 100,
+
       transition: {
         delay: 2,
         duration: 2,
@@ -172,7 +219,7 @@ const Home = () => {
       },
     },
     content: {
-      height: `${asdRef.current?.clientHeight ?? 0}px`,
+      minHeight: "calc(100vh - 135px)",
       transition: {
         delay: 3,
         duration: 1.5,
@@ -180,65 +227,132 @@ const Home = () => {
         ease: "0.550, 0.085, 0.680, 0.530",
       },
     },
+    navButton: {
+      opacity: 100,
+      transition: {
+        delay: 4.5,
+        duration: 0.5,
+      },
+    },
+    navBar: {
+      background: "#191919",
+      paddingInline: "32px",
+      width: "100%",
+      paddingTop: 16,
+      marginLeft: 0,
+      boxShadow: `
+         0px 6.6px 11.3px rgba(0, 0, 0, 0.059), 
+         0px 16px 28.5px rgba(0, 0, 0, 0.084),
+         0px 29px 58.1px rgba(0, 0, 0, 0.106), 
+         0px 40.3px 119.7px rgba(0, 0, 0, 0.131), 
+         0px 45px 328px rgba(0, 0, 0, 0.19)`,
+      transition: {
+        paddingTop: { delay: 2, duration: 1.5, bounce: 0.2, type: "spring" },
+        marginLeft: { delay: 3.7, duration: 1.5, bounce: 0.2, type: "spring" },
+        delay: 4.5,
+        duration: 0.5,
+      },
+    },
+    navLogo: {
+      color: "white",
+      transition: { delay: 4.5, duration: 0.5 },
+    },
   };
 
   return (
     <main className={clsx(cx["main"])}>
       {renderIntroduction}
 
-      <div ref={mainRef} className={clsx(cx["proxy-last-section"])}></div>
+      <div ref={mainRef} className={clsx(cx["proxy-last-section"])} />
       <div
         className={clsx(cx["main-section"], {
           "!opacity-100 !pointer-events-auto !visible": mainInview,
         })}
       >
-        <motion.div className={cx["main-section__wrapper"]}>
+        <div className={cx["main-section__wrapper"]}>
           <motion.div
             className={cx["details-container"]}
             initial={{ y: "calc(50vh - 83px)", opacity: 0 }}
             variants={variants}
             animate={hasVisited ? "detailsContainer" : ""}
           >
-            <p className={cx["logo"]}>JM</p>
-
+            <motion.nav
+              initial={{ color: "#191919", width: 100, paddingInline: 0 }}
+              className="w-fit mx-auto pb-[10px] flex justify-between"
+              variants={variants}
+              animate={hasVisited ? "navBar" : ""}
+            >
+              <motion.button
+                initial={{ background: "transparent" }}
+                variants={variants}
+                animate={hasVisited ? "navLogo" : ""}
+                className={cx["logo"]}
+              >
+                JM
+              </motion.button>
+              <div className="gap-10 grid grid-flow-col ">
+                {NAVITEMS.map((item) => {
+                  return (
+                    <motion.button
+                      key={item.key}
+                      initial={{ opacity: 0 }}
+                      animate={hasVisited ? "navButton" : ""}
+                      variants={variants}
+                      onClick={() => setCurrentPage(item.key)}
+                      className={clsx(
+                        "text-[#a9a9a9] transition-colors duration-300 w-[5.5rem]",
+                        {
+                          "!text-white": item.key === currentPage,
+                        }
+                      )}
+                    >
+                      {item.label}
+                      <div
+                        className={clsx(
+                          "border-b border-b-white h-[0.375rem] w-0 transition-[width] duration-300",
+                          { "!w-full": item.key === currentPage }
+                        )}
+                      />
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </motion.nav>
             <motion.div
               className={cx["content"]}
-              initial={{ height: "0" }}
+              initial={{ height: "0", paddingBlock: 0 }}
               variants={variants}
               animate={hasVisited ? "content" : ""}
             >
-              <div ref={asdRef} className={cx["content-wrapper"]}>
-                {["about-me", "projects", "my gallery", "tips"].map(
-                  (title, index) => (
-                    <div
-                      key={index}
-                      className="h-[31.25rem] border w-full border-[#191919] text-white  bg-black flex justify-center items-center"
-                    >
-                      <p className="font-earthOrbiter ">{title}</p>
-                    </div>
-                  )
-                )}
+              <div
+                ref={contentRef}
+                key={currentPage}
+                className={cx["content-wrapper"]}
+              >
+                {NAVITEMS.find((item) => item.key === currentPage)?.component}
               </div>
             </motion.div>
-            <div className={cx["socials-container"]}>
-              {SOCIALS.map((social, index) => (
-                <Link
-                  key={index}
-                  href={social.url}
-                  target={social.target}
-                  onMouseEnter={() => setHoveredSocial(index)}
-                  onMouseLeave={() => setHoveredSocial(undefined)}
-                  className={clsx({
-                    "!opacity-50":
-                      hoveredSocial !== undefined && hoveredSocial !== index,
-                  })}
-                >
-                  {social.icons}
-                </Link>
-              ))}
-            </div>
+            <footer className="pb-8">
+              <div className={cx["socials-container"]}>
+                {SOCIALS.map((social, index) => (
+                  <Link
+                    key={index}
+                    href={social.url}
+                    target={social.target}
+                    onMouseEnter={() => setHoveredSocial(index)}
+                    onMouseLeave={() => setHoveredSocial(undefined)}
+                    className={clsx({
+                      "!opacity-50":
+                        hoveredSocial !== undefined && hoveredSocial !== index,
+                    })}
+                  >
+                    {social.icons}
+                  </Link>
+                ))}
+              </div>
+            </footer>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </main>
   );
