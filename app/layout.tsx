@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Jomel Borruel",
   description: "Online portfolio.",
+  openGraph: { images: "/opengraph-image.png" },
 };
 
 export default function RootLayout({
