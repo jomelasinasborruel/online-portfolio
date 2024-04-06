@@ -108,8 +108,13 @@ const AboutMe = () => {
                 }
                 className="font-semiboldjustify-items-center pointer-events-none absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 justify-center overflow-hidden bg-white px-6 py-1  text-5xl text-[#a9a9a9] [clip-path:polygon(0_50%,_100%_50%,_100%_50%,_0_50%)] sm:text-7xl md:text-9xl"
               >
-                <div className="relative w-full max-w-[80rem] uppercase">
-                  <p className="w-fit">{item}</p>
+                <div className="relative flex w-full max-w-[80rem] items-center uppercase">
+                  <p className="w-fit max-sm:hidden">{item}</p>
+                  <p className="ml-4 font-acre text-sm">
+                    {" "}
+                    - Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry.
+                  </p>
                 </div>
               </motion.div>
             </div>
