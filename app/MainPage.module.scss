@@ -33,11 +33,11 @@
 
 .marquee-text {
   @apply font-bold tracking-[-0.05em] text-white;
-  font-size: 0.8125rem;
+  font-size: 200vh;
   font-size: 200dvh;
 
   @supports not (-webkit-touch-callout: none) {
-    @apply mt-[-15vh];
+    @apply mt-[-15dvh];
   }
   & > span:nth-child(odd) {
     @apply text-[#585858];

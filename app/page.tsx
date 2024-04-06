@@ -208,7 +208,7 @@ const Home = () => {
       },
     },
     content: {
-      minHeight: "calc(100vh - 135px)",
+      minHeight: "calc(100dvh - 135px)",
       height: "auto",
       transition: {
         delay: 3,
@@ -261,7 +261,7 @@ const Home = () => {
         <div className={cx["main-section__wrapper"]}>
           <motion.div
             className={cx["details-container"]}
-            initial={{ y: "calc(50vh - 83px)", opacity: 0 }}
+            initial={{ y: "calc(50dvh - 83px)", opacity: 0 }}
             variants={variants} 
             animate={hasVisited ? "detailsContainer" : ""}
           >
@@ -328,7 +328,7 @@ const Home = () => {
                       ? { x: -200, transition: { type: "just" } }
                       : { x: 0 }
                   }
-                  className="fixed right-[-200px] top-0 z-[100] mt-[74px] flex h-[calc(100vh-74px)] w-[200px] flex-col bg-white lg:hidden"
+                  className="fixed right-[-200px] top-0 z-[100] mt-[74px] flex h-[calc(100dvh-74px)] w-[200px] flex-col bg-white lg:hidden"
                 >
                   {NAVITEMS.map((item) => {
                     return (

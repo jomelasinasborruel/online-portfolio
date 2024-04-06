@@ -26,7 +26,7 @@ const AboutMe = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 100 }}
-        className="relative h-[40vh] w-full self-center px-8 py-10 md:h-[60dvh]"
+        className="relative h-[40dvh] w-full self-center px-8 py-10 md:h-[60dvh]"
       >
         <Image
           fill
