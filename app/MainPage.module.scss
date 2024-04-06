@@ -1,15 +1,15 @@
 .main {
-  @apply flex min-h-screen flex-col items-center justify-between relative text-[#a9a9a9] bg-[#191919];
+  @apply relative flex min-h-screen flex-col items-center justify-between bg-[#191919] text-[#a9a9a9];
 }
 
 .introduction--container {
-  @apply relative flex w-full justify-end items-end;
+  @apply relative flex w-full items-end justify-end;
   height: calc(1200px + 100vh);
   height: calc(1200px + 100dvh);
 }
 
 .socials-container {
-  @apply grid justify-items-center gap-3 grid-flow-col pt-2 border-t border-[#191919] w-fit mx-auto;
+  @apply mx-auto grid w-fit grid-flow-col justify-items-center gap-3 border-t border-[#191919] pt-2;
 }
 
 .socials-container > a > svg {
@@ -21,18 +21,18 @@
 }
 
 .btn-scroll {
-  @apply fixed top-[59%] select-none left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 text-center grid gap-2 justify-items-center;
+  @apply fixed left-1/2 top-[59%] grid -translate-x-1/2 -translate-y-1/2 select-none justify-items-center gap-2 text-center transition-opacity duration-500;
 }
 
 .model-canvas {
-  @apply top-0 left-0 w-full transition-opacity duration-1000 opacity-100;
+  @apply left-0 top-0 w-full opacity-100 transition-opacity duration-1000;
   position: fixed !important;
   height: 100vh !important;
   height: 100dvh !important;
 }
 
 .marquee-text {
-  @apply text-white font-bold tracking-[-0.05em];
+  @apply font-bold tracking-[-0.05em] text-white;
   font-size: 0.8125rem;
   font-size: 200dvh;
 
@@ -45,29 +45,29 @@
 }
 
 .video-section {
-  @apply text-4xl w-full h-[200px] flex justify-center items-center transition-opacity duration-500 opacity-0 relative pointer-events-none;
+  @apply pointer-events-none relative flex h-[200px] w-full items-center justify-center text-4xl opacity-0 transition-opacity duration-500;
 }
 
 .video {
-  @apply fixed object-cover w-full h-full top-0 left-0 transition-opacity duration-500 pointer-events-none;
+  @apply pointer-events-none fixed left-0 top-0 h-full w-full object-cover transition-opacity duration-500;
 }
 
 .video-caption {
-  @apply select-none fixed text-xl min-w-[13.875rem] sm:text-4xl font-earthOrbiter tracking-widest left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center px-3 transition-opacity duration-500;
+  @apply fixed left-1/2 top-1/2 min-w-[13.875rem] -translate-x-1/2 -translate-y-1/2 select-none px-3 text-center font-earthOrbiter text-xl tracking-widest transition-opacity duration-500 sm:text-4xl;
 }
 
 .proxy-last-section {
-  @apply w-full h-[6.25rem] opacity-0;
+  @apply h-[6.25rem] w-full opacity-0;
 }
 
 .main-section {
-  @apply fixed invisible text-[#191919] transition-opacity duration-500 w-full opacity-0 z-40 top-0 left-0 bg-[#aaaaaa] pointer-events-none;
+  @apply pointer-events-none invisible fixed left-0 top-0 z-40 w-full bg-[#191919] text-[#191919] opacity-0 transition-opacity duration-500;
   height: 100vh;
   height: 100dvh;
 }
 
 .main-section__wrapper {
-  @apply relative w-full h-full max-h-full overflow-y-auto;
+  @apply relative h-full max-h-full w-full overflow-y-auto;
 
   &::-webkit-scrollbar {
     width: 5px;
@@ -80,17 +80,17 @@
 }
 
 .details-container {
-  @apply block relative;
+  @apply relative block;
   // min-height: 100vh;
   // min-height: 100dvh;
 }
 
 .logo {
-  @apply text-5xl font-earthOrbiter tracking-widest select-none;
+  @apply select-none font-earthOrbiter text-5xl tracking-widest text-[#a9a9a9];
 }
 
 .content {
-  @apply overflow-x-auto w-full mx-auto max-w-[80rem];
+  @apply mx-auto w-full;
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -99,5 +99,3 @@
 .content-wrapper {
   @apply block;
 }
-
-

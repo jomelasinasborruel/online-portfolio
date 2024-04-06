@@ -16,6 +16,7 @@ const config: Config = {
     },
     fontFamily: {
       "earthOrbiter": ["Earth Orbiter", ...defaultTheme.fontFamily.sans],
+      "acre": ["Acre", ...defaultTheme.fontFamily.sans],
     },
   },
   plugins: [],

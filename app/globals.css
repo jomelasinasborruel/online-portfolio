@@ -27,4 +27,8 @@ body::-webkit-scrollbar-thumb:hover {
     src: local("Earth Orbiter"),
       url("/fonts/earthorbiter.ttf") format("truetype");
   }
+  @font-face {
+    font-family: Acre;
+    src: url("/fonts/acre.otf") format("opentype");
+  }
 }

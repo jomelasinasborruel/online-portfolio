@@ -12,7 +12,7 @@ import clsx from "clsx";
 import zenScroll from "zenscroll";
 // SVGs
 import { GrInstagram } from "react-icons/gr";
-import { ImFacebook, ImLinkedin2 } from "react-icons/im";
+import { ImCross, ImFacebook, ImLinkedin2 } from "react-icons/im";
 import { BsArrowBarDown } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
@@ -21,6 +21,8 @@ import cx from "./MainPage.module.scss";
 import { useProgress } from "@react-three/drei";
 import ReactLoading from "react-loading";
 import Marquee from "react-fast-marquee";
+import AboutMe from "@/components/pages/AboutMe";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 interface NavItem {
   key: "aboutMe" | "projects" | "logo" | "myGallery" | "devTips";
@@ -32,22 +34,7 @@ const NAVITEMS: NavItem[] = [
   {
     key: "aboutMe",
     label: "About Me",
-    component: (
-      <div className="pt-10">
-        <h3>What is Lorem Ipsum? </h3>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
-        </p>
-      </div>
-    ),
+    component: <AboutMe />,
   },
   {
     key: "projects",
@@ -75,11 +62,13 @@ const Home = () => {
   const loadingProgress = useProgress();
   const [hasVisited, setHadVisited] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [toggleMobileNav, setToggleMobileNav] = useState(false);
   const [mainRef, mainInview] = useInView({
     threshold: 1,
   });
   const [currentPage, setCurrentPage] = useState<NavItem["key"]>("aboutMe");
-
+  const [isStructureAnimationDone, setIsStructureAnimationDone] =
+    useState(false);
   const [hoveredSocial, setHoveredSocial] = useState<number>();
 
   const handleScroll = () => {
@@ -106,8 +95,8 @@ const Home = () => {
       <Marquee
         autoFill
         className={clsx(
-          "!fixed w-full h-screen top-0 left-0 opacity-5 select transition-opacity duration-500",
-          { "!opacity-0": scrollY > 900 }
+          "select !fixed left-0 top-0 h-screen w-full opacity-5 transition-opacity duration-500",
+          { "!opacity-0": scrollY > 900 },
         )}
         speed={10}
       >
@@ -133,7 +122,7 @@ const Home = () => {
       <button
         onClick={handleScroll}
         className={clsx(cx["btn-scroll"], {
-          "!opacity-0 pointer-events-none": scrollY > 200,
+          "pointer-events-none !opacity-0": scrollY > 200,
         })}
       >
         <p>Click to scroll</p>
@@ -144,7 +133,7 @@ const Home = () => {
       <div
         ref={videoSectionRef}
         className={clsx(cx["video-section"], {
-          "!opacity-100 !pointer-events-auto":
+          "!pointer-events-auto !opacity-100":
             videoSectionInviewRef && !mainInview,
         })}
       >
@@ -198,7 +187,7 @@ const Home = () => {
           "max-h-screen overflow-hidden": loadingProgress.progress !== 100,
         })}
       >
-        <div className="top-1/2 left-1/2 fixed -translate-y-1/2 -translate-x-1/2 ">
+        <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
           <ReactLoading type="bubbles" delay={500} color="#a9a9a9" />
         </div>
       </main>
@@ -220,6 +209,7 @@ const Home = () => {
     },
     content: {
       minHeight: "calc(100vh - 135px)",
+      height: "auto",
       transition: {
         delay: 3,
         duration: 1.5,
@@ -248,8 +238,7 @@ const Home = () => {
          0px 45px 328px rgba(0, 0, 0, 0.19)`,
       transition: {
         paddingTop: { delay: 2, duration: 1.5, bounce: 0.2, type: "spring" },
-        marginLeft: { delay: 3.7, duration: 1.5, bounce: 0.2, type: "spring" },
-        delay: 4.5,
+        delay: 3.5,
         duration: 0.5,
       },
     },
@@ -266,7 +255,7 @@ const Home = () => {
       <div ref={mainRef} className={clsx(cx["proxy-last-section"])} />
       <div
         className={clsx(cx["main-section"], {
-          "!opacity-100 !pointer-events-auto !visible": mainInview,
+          "!pointer-events-auto !visible !opacity-100": mainInview,
         })}
       >
         <div className={cx["main-section__wrapper"]}>
@@ -278,44 +267,90 @@ const Home = () => {
           >
             <motion.nav
               initial={{ color: "#191919", width: 100, paddingInline: 0 }}
-              className="w-fit mx-auto pb-[10px] flex justify-between"
+              className="mx-auto flex w-fit justify-center pb-[10px]"
               variants={variants}
               animate={hasVisited ? "navBar" : ""}
+              onAnimationComplete={() => setIsStructureAnimationDone(true)}
             >
-              <motion.button
-                initial={{ background: "transparent" }}
-                variants={variants}
-                animate={hasVisited ? "navLogo" : ""}
-                className={cx["logo"]}
-              >
-                JM
-              </motion.button>
-              <div className="gap-10 grid grid-flow-col ">
-                {NAVITEMS.map((item) => {
-                  return (
-                    <motion.button
-                      key={item.key}
-                      initial={{ opacity: 0 }}
-                      animate={hasVisited ? "navButton" : ""}
-                      variants={variants}
-                      onClick={() => setCurrentPage(item.key)}
-                      className={clsx(
-                        "text-[#a9a9a9] transition-colors duration-300 w-[5.5rem]",
-                        {
-                          "!text-white": item.key === currentPage,
-                        }
-                      )}
-                    >
-                      {item.label}
-                      <div
+              <div className="flex w-full max-w-[80rem] justify-between">
+                <motion.div
+                  initial={{ background: "transparent" }}
+                  variants={variants}
+                  animate={hasVisited ? "navLogo" : ""}
+                  className={cx["logo"]}
+                >
+                  JM
+                </motion.div>
+                <div className="hidden  grid-flow-col gap-10 lg:grid">
+                  {NAVITEMS.map((item) => {
+                    return (
+                      <motion.button
+                        key={item.key}
+                        initial={{ opacity: 0 }}
+                        animate={hasVisited ? "navButton" : ""}
+                        variants={variants}
+                        onClick={() => setCurrentPage(item.key)}
+                        whileHover={{ color: "white" }}
                         className={clsx(
-                          "border-b border-b-white h-[0.375rem] w-0 transition-[width] duration-300",
-                          { "!w-full": item.key === currentPage }
+                          "w-[5.5rem] text-[#a9a9a9] transition-colors duration-300",
+                          {
+                            "!text-white": item.key === currentPage,
+                          },
                         )}
-                      />
-                    </motion.button>
-                  );
-                })}
+                      >
+                        {item.label}
+                        <div
+                          className={clsx(
+                            "h-[0.375rem] w-0 border-b border-b-white transition-[width] duration-300",
+                            { "!w-full": item.key === currentPage },
+                          )}
+                        />
+                      </motion.button>
+                    );
+                  })}
+                </div>
+                <motion.button
+                  onClick={() => setToggleMobileNav((prev) => !prev)}
+                  initial={{ opacity: 0 }}
+                  animate={hasVisited ? "navButton" : ""}
+                  variants={variants}
+                  className="block lg:hidden"
+                >
+                  {toggleMobileNav ? (
+                    <ImCross className="fill-white" />
+                  ) : (
+                    <GiHamburgerMenu className="fill-white" />
+                  )}
+                </motion.button>
+                <motion.div
+                  animate={
+                    toggleMobileNav
+                      ? { x: -200, transition: { type: "just" } }
+                      : { x: 0 }
+                  }
+                  className="fixed right-[-200px] top-0 z-[100] mt-[74px] flex h-[calc(100vh-74px)] w-[200px] flex-col bg-white lg:hidden"
+                >
+                  {NAVITEMS.map((item) => {
+                    return (
+                      <motion.button
+                        key={item.key}
+                        initial={{ opacity: 0 }}
+                        animate={hasVisited ? "navButton" : ""}
+                        variants={variants}
+                        onClick={() => setCurrentPage(item.key)}
+                        className={clsx(
+                          "w-full p-3 text-[#191919] transition-colors duration-300",
+                          {
+                            "bg-slate-500 !text-white":
+                              item.key === currentPage,
+                          },
+                        )}
+                      >
+                        {item.label}
+                      </motion.button>
+                    );
+                  })}
+                </motion.div>
               </div>
             </motion.nav>
             <motion.div
@@ -329,10 +364,11 @@ const Home = () => {
                 key={currentPage}
                 className={cx["content-wrapper"]}
               >
-                {NAVITEMS.find((item) => item.key === currentPage)?.component}
+                {isStructureAnimationDone &&
+                  NAVITEMS.find((item) => item.key === currentPage)?.component}
               </div>
             </motion.div>
-            <footer className="pb-8">
+            <footer className="pb-8 text-[#a9a9a9]">
               <div className={cx["socials-container"]}>
                 {SOCIALS.map((social, index) => (
                   <Link
