@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Jomel Borruel",
   description: "Online portfolio.",
   openGraph: { images: "/opengraph-image.png" },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL),
 };
 
 export default function RootLayout({
