@@ -26,7 +26,7 @@ const AboutMe = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 100 }}
-        className="relative h-[60dvh] w-full self-center px-8 py-10"
+        className="relative h-[40vh] w-full self-center px-8 py-10 md:h-[60dvh]"
       >
         <Image
           fill
@@ -63,7 +63,7 @@ const AboutMe = () => {
         </p>
       </div>
       {
-        <div className="grid w-full justify-items-center self-center">
+        <div className="grid w-full justify-items-center self-center pb-10">
           {experience.map((item, index) => (
             <div key={`${item}-${index}`} className="relative w-full">
               <motion.div
@@ -72,6 +72,7 @@ const AboutMe = () => {
                 whileInView={{
                   x: 0,
                   opacity: 100,
+                  borderBottom: ".5px solid #535353",
                   pointerEvents: "auto",
                   transition: {
                     duration: 0.5,

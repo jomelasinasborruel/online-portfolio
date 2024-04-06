@@ -125,7 +125,7 @@ const Home = () => {
           "pointer-events-none !opacity-0": scrollY > 200,
         })}
       >
-        <p>Click to scroll</p>
+        <p className="font-acre">Click to scroll</p>
 
         <BsArrowBarDown />
       </button>
@@ -262,12 +262,12 @@ const Home = () => {
           <motion.div
             className={cx["details-container"]}
             initial={{ y: "calc(50vh - 83px)", opacity: 0 }}
-            variants={variants}
+            variants={variants} 
             animate={hasVisited ? "detailsContainer" : ""}
           >
             <motion.nav
               initial={{ color: "#191919", width: 100, paddingInline: 0 }}
-              className="mx-auto flex w-fit justify-center pb-[10px]"
+              className="mx-auto flex w-fit justify-center pb-[10px] z-[100] sticky top-0"
               variants={variants}
               animate={hasVisited ? "navBar" : ""}
               onAnimationComplete={() => setIsStructureAnimationDone(true)}
@@ -279,7 +279,7 @@ const Home = () => {
                   animate={hasVisited ? "navLogo" : ""}
                   className={cx["logo"]}
                 >
-                  JM
+                  Jm
                 </motion.div>
                 <div className="hidden  grid-flow-col gap-10 lg:grid">
                   {NAVITEMS.map((item) => {
