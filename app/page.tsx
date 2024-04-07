@@ -77,7 +77,10 @@ const Home = () => {
       zenScroll.toY(1200, 500);
     }, 3000);
     delay(() => {
-      zenScroll.toY(window.scrollY + window.innerHeight, 1000);
+      const dd = document.getElementById("proxy-last-section");
+      if (dd) {
+        dd.scrollIntoView({});
+      }
     }, 4700);
   };
   const handleScoll = () => {
@@ -252,7 +255,6 @@ const Home = () => {
     <main className={clsx(cx["main"])}>
       {renderIntroduction}
 
-      <div ref={mainRef} className={clsx(cx["proxy-last-section"])} />
       <div
         className={clsx(cx["main-section"], {
           "!pointer-events-auto !visible !opacity-100": mainInview,
@@ -262,12 +264,12 @@ const Home = () => {
           <motion.div
             className={cx["details-container"]}
             initial={{ y: "calc(50dvh - 83px)", opacity: 0 }}
-            variants={variants} 
+            variants={variants}
             animate={hasVisited ? "detailsContainer" : ""}
           >
             <motion.nav
               initial={{ color: "#191919", width: 100, paddingInline: 0 }}
-              className="mx-auto flex w-fit justify-center pb-[10px] z-[100] sticky top-0"
+              className="sticky top-0 z-[100] mx-auto flex w-fit justify-center pb-[10px]"
               variants={variants}
               animate={hasVisited ? "navBar" : ""}
               onAnimationComplete={() => setIsStructureAnimationDone(true)}
@@ -390,6 +392,11 @@ const Home = () => {
           </motion.div>
         </div>
       </div>
+      <div
+        id={"proxy-last-section"}
+        ref={mainRef}
+        className={clsx(cx["proxy-last-section"])}
+      />
     </main>
   );
 };
