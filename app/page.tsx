@@ -240,13 +240,13 @@ const Home = () => {
          0px 40.3px 119.7px rgba(0, 0, 0, 0.131), 
          0px 45px 328px rgba(0, 0, 0, 0.19)`,
       transition: {
-        paddingTop: { delay: 2, duration: 1.5, bounce: 0.2, type: "spring" },
+        paddingTop: { delay: 2, duration: 1.5 },
         delay: 3.5,
         duration: 0.5,
       },
     },
     navLogo: {
-      color: "white",
+      color: "#FFFFFF",
       transition: { delay: 4.5, duration: 0.5 },
     },
   };
@@ -276,7 +276,7 @@ const Home = () => {
             >
               <div className="flex w-full max-w-[80rem] justify-between">
                 <motion.div
-                  initial={{ background: "transparent" }}
+                  initial={{ background: "transparent", color: "#a9a9a9" }}
                   variants={variants}
                   animate={hasVisited ? "navLogo" : ""}
                   className={cx["logo"]}
