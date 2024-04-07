@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 type Experience =
-  | "ReactJs"
+  | "React"
   | "NextJs"
   | "Prisma"
   | "GraphQL"
@@ -14,7 +14,7 @@ const AboutMe = () => {
   const [isGreetingDone, setIsGreetingDone] = useState(false);
   const [activeExp, setActiveExp] = useState<Experience>();
   const experience: Experience[] = [
-    "ReactJs",
+    "React",
     "NextJs",
     "Prisma",
     "GraphQL",
