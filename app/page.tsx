@@ -181,18 +181,7 @@ const Home = () => {
       </main>
     );
 
-  const variants: Variants | undefined = {
-    content: {
-      minHeight: "calc(100dvh - 135px)",
-      height: "auto",
-      transition: {
-        delay: 3,
-        duration: 1.5,
-        type: "spring",
-        ease: "0.550, 0.085, 0.680, 0.530",
-      },
-    },
-  };
+  const variants: Variants | undefined = {};
 
   return (
     <main className={clsx(cx["main"])}>
@@ -290,11 +279,7 @@ const Home = () => {
             </motion.div>
           </div>
         </motion.nav> */}
-        <motion.div
-          className={cx["content"]}
-          variants={variants}
-          animate={hasVisited ? "content" : ""}
-        >
+        <div className={cx["content"]}>
           <div
             ref={contentRef}
             key={currentPage}
@@ -302,7 +287,7 @@ const Home = () => {
           >
             {NAVITEMS.find((item) => item.key === currentPage)?.component}
           </div>
-        </motion.div>
+        </div>
         <footer className="pb-8 text-[#a9a9a9]">
           <div className={cx["socials-container"]}>
             {SOCIALS.map((social, index) => (
