@@ -3,9 +3,9 @@
 }
 
 .introduction--container {
-  @apply relative flex w-full items-end justify-end;
-  height: calc(1200px + 100vh);
-  height: calc(1200px + 100dvh);
+  @apply relative flex w-full;
+  height: calc(2000px + 100vh);
+  height: calc(2000px + 100dvh);
 }
 
 .socials-container {
@@ -21,12 +21,13 @@
 }
 
 .btn-scroll {
-  @apply fixed left-1/2 top-[59%] grid -translate-x-1/2 -translate-y-1/2 select-none justify-items-center gap-2 text-center transition-opacity duration-500;
+  @apply absolute left-1/2 top-[59%] z-50 grid -translate-x-1/2 -translate-y-1/2 select-none justify-items-center gap-2 text-center transition-opacity duration-500;
 }
 
 .model-canvas {
   @apply left-0 top-0 w-full opacity-100 transition-opacity duration-1000;
-  position: fixed !important;
+  pointer-events: none !important;
+  position: absolute !important;
   height: 100vh !important;
   height: 100dvh !important;
 }
@@ -45,15 +46,15 @@
 }
 
 .video-section {
-  @apply pointer-events-none relative flex h-[200px] w-full items-center justify-center text-4xl opacity-0 transition-opacity duration-500;
+  @apply pointer-events-none top-0 left-0 sticky grid h-[calc(100dvh)] w-full place-items-center text-4xl opacity-100;
 }
 
 .video {
-  @apply pointer-events-none fixed left-0 top-0 h-full w-full object-cover transition-opacity duration-500;
+  @apply pointer-events-none relative  h-full w-full object-cover transition-opacity duration-500;
 }
 
 .video-caption {
-  @apply fixed left-1/2 top-1/2 min-w-[13.875rem] -translate-x-1/2 -translate-y-1/2 select-none px-3 text-center font-earthOrbiter text-xl tracking-widest transition-opacity duration-500 sm:text-4xl;
+  @apply absolute left-1/2 top-1/2 block min-w-[13.875rem] -translate-x-1/2 -translate-y-1/2 select-none px-3 text-center font-earthOrbiter text-xl tracking-widest sm:text-4xl;
 }
 
 .proxy-last-section {
@@ -61,7 +62,7 @@
 }
 
 .main-section {
-  @apply pointer-events-none invisible fixed left-0 top-0 z-40 w-full bg-[#191919] text-[#191919] opacity-0 transition-opacity duration-500;
+  @apply pointer-events-none invisible z-40 w-full bg-[#191919] text-[#191919] opacity-0 transition-opacity duration-500;
   height: 100vh;
   height: 100dvh;
 }
@@ -80,7 +81,7 @@
 }
 
 .details-container {
-  @apply relative block;
+  @apply relative block w-full bg-[#191919];
   // min-height: 100vh;
   // min-height: 100dvh;
 }

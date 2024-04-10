@@ -23,7 +23,7 @@ const AboutMe = () => {
   ];
   return (
     <div className="flex max-w-full flex-col overflow-hidden font-acre">
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 100 }}
         className="relative h-[40dvh] w-full self-center px-8 py-10 md:h-[60dvh]"
@@ -41,7 +41,7 @@ const AboutMe = () => {
               key={`${letter}-${index}`}
               className="inline-block font-earthOrbiter text-5xl text-[#d3a121] sm:text-8xl"
               initial={{ opacity: 0, y: -50 }}
-              animate={{
+              whileInView={{
                 opacity: 100,
                 y: 0,
                 transition: {
@@ -50,20 +50,21 @@ const AboutMe = () => {
                   duration: 0.3,
                 },
               }}
+              viewport={{ once: true }}
               onAnimationComplete={() => setIsGreetingDone(true)}
             >
               {letter}
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
       <div className="flex w-full justify-center self-center bg-[#191919] px-8 pb-3 pt-10">
         <p className="w-full max-w-[1280px] text-xl text-white md:text-3xl">
           Tech Stack
         </p>
       </div>
       {
-        <div className="grid w-full justify-items-center self-center pb-10">
+        <div className="grid w-full justify-items-center self-center bg-[#191919] pb-10">
           {experience.map((item, index) => (
             <div key={`${item}-${index}`} className="relative w-full">
               <motion.div
