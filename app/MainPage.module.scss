@@ -53,9 +53,7 @@
   @apply pointer-events-none relative  h-full w-full object-cover transition-opacity duration-500;
 }
 
-.video-caption {
-  @apply absolute left-1/2 top-1/2 block min-w-[13.875rem] -translate-x-1/2 -translate-y-1/2 select-none px-3 text-center font-earthOrbiter text-xl tracking-widest sm:text-4xl;
-}
+
 
 .proxy-last-section {
   @apply h-[6.25rem] w-full opacity-0;

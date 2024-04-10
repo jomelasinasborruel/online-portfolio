@@ -81,7 +81,7 @@ const Home = () => {
     target: fff,
     offset: ["start start", "end start"],
   });
-  console.log({ ffSpan });
+
   const handleScroll = () => {
     zenScroll.toY(1100, 2000);
     delay(() => {
@@ -95,7 +95,7 @@ const Home = () => {
       const dd = document.getElementById("details-container");
       if (dd) {
         dd.scrollIntoView({ behavior: "smooth" });
-        zenScroll.toY(1300 + window.innerHeight, 1500);
+        zenScroll.toY(2000 + window.innerHeight * (1 / 3), 1500);
       }
     }, 5500);
   };
@@ -154,46 +154,8 @@ const Home = () => {
         </button>
       </div>
       <div className={clsx(cx["video-section"], {})}>
-        <IntroductionParallax />
-        <motion.div
-          className={clsx(cx["video-caption"])}
-          animate={scrollY > 1700 ? { opacity: 0 } : ""}
-        >
-          <motion.span
-            animate={
-              scrollY >= 1100 && scrollY < 1400 ? { color: "#FFFFFF" } : ""
-            }
-          >
-            Rest in reason,
-          </motion.span>{" "}
-          <motion.span animate={scrollY >= 1400 ? { color: "#FFFFFF" } : ""}>
-            move in passion.
-          </motion.span>
-        </motion.div>
-        {scrollY > 1700 && (
-          <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 select-none justify-center font-semibold text-[#191919]">
-            {"jomel".split("").map((letter, index) => (
-              <motion.div
-                key={`${letter}-${index}`}
-                className="inline-block font-earthOrbiter text-5xl tracking-widest text-[#d3a121] sm:text-8xl"
-                initial={{ opacity: 0, y: -50 }}
-                animate={{
-                  opacity: 100,
-                  y: 0,
-                  transition: {
-                    delay:
-                      index == 2 ? 0 : index === 1 || index === 3 ? 0.3 : 0.5,
-                    duration: 0.3,
-                  },
-                }}
-                // viewport={{ once: true }}
-                // onAnimationComplete={() => setIsGreetingDone(true)}
-              >
-                {letter}
-              </motion.div>
-            ))}
-          </div>
-        )}
+        <IntroductionParallax scrollY={scrollY} />
+        
       </div>
     </div>
   );
@@ -378,7 +340,6 @@ const Home = () => {
         </motion.nav> */}
         <motion.div
           className={cx["content"]}
-          // initial={{ height: "0", paddingBlock: 0 }}
           variants={variants}
           animate={hasVisited ? "content" : ""}
         >

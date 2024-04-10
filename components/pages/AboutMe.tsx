@@ -11,15 +11,14 @@ type Experience =
   | "Tailwind";
 
 const AboutMe = () => {
-  const [isGreetingDone, setIsGreetingDone] = useState(false);
   const [activeExp, setActiveExp] = useState<Experience>();
-  const experience: Experience[] = [
-    "React",
-    "NextJs",
-    "Prisma",
-    "GraphQL",
-    "SASS",
-    "Tailwind",
+  const experience: { title: Experience; description: string }[] = [
+    { title: "React", description: "2 Years of Experience" },
+    { title: "NextJs", description: "2 Years of Experience" },
+    { title: "Prisma", description: "2 Years of Experience" },
+    { title: "GraphQL", description: "2 Years of Experience" },
+    { title: "SASS", description: "2 Years of Experience" },
+    { title: "Tailwind", description: "2 Years of Experience" },
   ];
   return (
     <div className="flex max-w-full flex-col overflow-hidden font-acre">
@@ -87,19 +86,19 @@ const AboutMe = () => {
                   <p
                     className="w-fit"
                     onMouseEnter={() => {
-                      setActiveExp(item as Experience);
+                      setActiveExp(item.title);
                     }}
                     onMouseLeave={() => {
                       setActiveExp(undefined);
                     }}
                   >
-                    {item}
+                    {item.title}
                   </p>
                 </div>
               </motion.div>
               <motion.div
                 animate={
-                  activeExp === item
+                  activeExp === item.title
                     ? {
                         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
                         color: "black",
@@ -110,12 +109,8 @@ const AboutMe = () => {
                 className="font-semiboldjustify-items-center pointer-events-none absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 justify-center overflow-hidden bg-white px-6 py-1  text-5xl text-[#a9a9a9] [clip-path:polygon(0_50%,_100%_50%,_100%_50%,_0_50%)] sm:text-7xl md:text-9xl"
               >
                 <div className="relative flex w-full max-w-[80rem] items-center uppercase">
-                  <p className="w-fit max-sm:hidden">{item}</p>
-                  <p className="ml-4 font-acre text-sm">
-                    {" "}
-                    - Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
+                  <p className="w-fit max-sm:hidden">{item.title}</p>
+                  <p className="ml-4 font-acre text-sm">- {item.description}</p>
                 </div>
               </motion.div>
             </div>
