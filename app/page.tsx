@@ -76,9 +76,9 @@ const Home = () => {
   const [isStructureAnimationDone, setIsStructureAnimationDone] =
     useState(false);
   const [hoveredSocial, setHoveredSocial] = useState<number>();
-  const fff = useRef<HTMLDivElement>(null);
+  const introRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: ffSpan } = useScroll({
-    target: fff,
+    target: introRef,
     offset: ["start start", "end start"],
   });
 
@@ -92,11 +92,7 @@ const Home = () => {
       zenScroll.toY(1800, 500);
     }, 4000);
     delay(() => {
-      const dd = document.getElementById("details-container");
-      if (dd) {
-        dd.scrollIntoView({ behavior: "smooth" });
-        zenScroll.toY(2000 + window.innerHeight * (1 / 3), 1500);
-      }
+      zenScroll.toY(2000 + window.innerHeight * (1 / 3), 1500);
     }, 5500);
   };
   const handleScoll = () => {
@@ -105,9 +101,8 @@ const Home = () => {
     setScrollTop(0.314 * (window.scrollY / 100));
   };
 
-  const textY = useTransform(ffSpan, [0.31746, 1], ["-3.1746%", "50%"]);
   const renderIntroduction = (
-    <div ref={fff} className={clsx(cx["introduction--container"])}>
+    <div ref={introRef} className={clsx(cx["introduction--container"])}>
       <div
         className={clsx(
           "fixed left-0 top-0 z-10 h-screen w-screen bg-[#191919] transition-opacity duration-500",
@@ -155,7 +150,6 @@ const Home = () => {
       </div>
       <div className={clsx(cx["video-section"], {})}>
         <IntroductionParallax scrollY={scrollY} />
-        
       </div>
     </div>
   );
@@ -188,57 +182,15 @@ const Home = () => {
     );
 
   const variants: Variants | undefined = {
-    detailsContainer: {
-      y: 0,
-      opacity: 100,
-
+    content: {
+      minHeight: "calc(100dvh - 135px)",
+      height: "auto",
       transition: {
-        delay: 2,
-        duration: 2,
-        opacity: { delay: 1, duration: 1 },
-        ease: [0.36, 0.305, 0.4, 0.86],
+        delay: 3,
+        duration: 1.5,
         type: "spring",
-        bounce: 0.1,
+        ease: "0.550, 0.085, 0.680, 0.530",
       },
-    },
-    // content: {
-    //   minHeight: "calc(100dvh - 135px)",
-    //   height: "auto",
-    //   transition: {
-    //     delay: 3,
-    //     duration: 1.5,
-    //     type: "spring",
-    //     ease: "0.550, 0.085, 0.680, 0.530",
-    //   },
-    // },
-    navButton: {
-      opacity: 100,
-      transition: {
-        delay: 4.5,
-        duration: 0.5,
-      },
-    },
-    navBar: {
-      background: "#191919",
-      paddingInline: "32px",
-      width: "100%",
-      paddingTop: 16,
-      marginLeft: 0,
-      boxShadow: `
-         0px 6.6px 11.3px rgba(0, 0, 0, 0.059), 
-         0px 16px 28.5px rgba(0, 0, 0, 0.084),
-         0px 29px 58.1px rgba(0, 0, 0, 0.106), 
-         0px 40.3px 119.7px rgba(0, 0, 0, 0.131), 
-         0px 45px 328px rgba(0, 0, 0, 0.19)`,
-      transition: {
-        paddingTop: { delay: 2, duration: 1.5 },
-        delay: 3.5,
-        duration: 0.5,
-      },
-    },
-    navLogo: {
-      color: "#FFFFFF",
-      transition: { delay: 4.5, duration: 0.5 },
     },
   };
 

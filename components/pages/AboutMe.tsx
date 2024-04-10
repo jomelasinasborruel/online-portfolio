@@ -76,7 +76,7 @@ const AboutMe = () => {
                   pointerEvents: "auto",
                   transition: {
                     duration: 0.5,
-                    delay: index * 0.3,
+                    delay: 0.3,
                   },
                 }}
                 className="font-semiboldjustify-items-center flex w-full select-none 
