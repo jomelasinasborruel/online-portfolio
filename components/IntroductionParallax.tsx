@@ -33,6 +33,7 @@ export default function IntroductionParallax({ scrollY }: { scrollY: number }) {
           }
           src="https://res.cloudinary.com/jmcloudname/video/upload/f_auto:video,q_auto/v1/online-portfolio/videos/v9xldgfnoau5kpmzv6uk"
         />
+        <div className="absolute left-0 top-0 h-full w-full bg-gradient-to-t from-[#191919] to-[#ffffff00]" />
         <motion.div
           key="quote"
           className={

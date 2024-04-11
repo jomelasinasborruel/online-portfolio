@@ -44,7 +44,13 @@ export default function ProjectsParallax() {
                 opacity: 100,
                 y: 0,
                 transition: {
-                  delay: index * 0.05,
+                  delay: [3, 4].includes(index)
+                    ? 0
+                    : [2, 5].includes(index)
+                      ? 0.1
+                      : [1, 6].includes(index)
+                        ? 0.3
+                        : 0.5,
                   duration: 0.3,
                 },
               }}
