@@ -27,9 +27,9 @@ import cx from "./MainPage.module.scss";
 import { useProgress } from "@react-three/drei";
 import ReactLoading from "react-loading";
 import Marquee from "react-fast-marquee";
-import AboutMe from "@/components/pages/AboutMe";
+import AboutMe from "@/components/sections/AboutMe";
 import { GiHamburgerMenu } from "react-icons/gi";
-import IntroductionParallax from "@/components/Parallax";
+import IntroductionParallax from "@/components/IntroductionParallax";
 
 interface NavItem {
   key: "aboutMe" | "projects" | "logo" | "myGallery" | "devTips";
@@ -330,7 +330,7 @@ const SOCIALS: {
     target: "_blank",
   },
   {
-    url: "https://www.instagram.com/jmmmmm_07/",
+    url: "https://www.linkedin.com/in/jomel-borruel-a42096218/",
     icons: <ImLinkedin2 />,
     target: "_blank",
   },
