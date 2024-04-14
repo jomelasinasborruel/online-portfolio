@@ -103,13 +103,28 @@ const Home = () => {
 
   const renderIntroduction = (
     <div ref={introRef} className={clsx(cx["introduction--container"])}>
-      <div
+      <motion.div
+        key="intro-container-key"
         className={clsx(
-          "fixed left-0 top-0 z-10 h-screen w-screen bg-[#191919] transition-opacity duration-500",
-          {
-            "!pointer-events-none !opacity-0": scrollY > 900,
-          },
+          "fixed left-0 top-0 z-10 h-screen w-screen bg-[#191919]",
         )}
+        animate={
+          scrollY > 900
+            ? {
+                pointerEvents: "none",
+                opacity: 0,
+                transitionEnd: { display: "none" },
+              }
+            : {
+                pointerEvents: "auto",
+                opacity: 1,
+                display: "block",
+                transition: {
+                  opacity: { delay: 0.5 },
+                  pointerEvents: { delay: 0.5 },
+                },
+              }
+        }
       >
         <Marquee
           autoFill
@@ -147,7 +162,7 @@ const Home = () => {
 
           <BsArrowBarDown />
         </button>
-      </div>
+      </motion.div>
       <div className={clsx(cx["video-section"], {})}>
         <IntroductionParallax scrollY={scrollY} />
       </div>
@@ -181,13 +196,12 @@ const Home = () => {
       </main>
     );
 
-  const variants: Variants | undefined = {};
-
   return (
     <main className={clsx(cx["main"])}>
       {renderIntroduction}
 
       <motion.div
+        key="details-container-key"
         ref={mainRef}
         id="details-container"
         className={cx["details-container"]}

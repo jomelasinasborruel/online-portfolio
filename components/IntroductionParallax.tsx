@@ -4,7 +4,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function IntroductionParallax({ scrollY }: { scrollY: number }) {
   const ref = useRef(null);
@@ -15,6 +15,16 @@ export default function IntroductionParallax({ scrollY }: { scrollY: number }) {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "500%"]);
 
+  const fg: string = (backgroundY as any).current;
+  useEffect(() => {
+    const video = document.getElementById("bg-video") as HTMLVideoElement;
+    if (scrollY > 900 && fg !== "100%" && video) {
+      video.play();
+    } else {
+      video.pause();
+    }
+    // };
+  }, [scrollY]);
   return (
     <div
       ref={ref}
@@ -22,9 +32,9 @@ export default function IntroductionParallax({ scrollY }: { scrollY: number }) {
     >
       <AnimatePresence>
         <motion.video
+          id="bg-video"
           key="video"
           style={{ y: backgroundY }}
-          autoPlay
           playsInline
           loop
           muted
