@@ -9,11 +9,11 @@
 }
 
 .socials-container {
-  @apply mx-auto grid w-fit grid-flow-col justify-items-center gap-3 border-t border-[#191919] pt-2;
+  @apply mx-auto grid w-fit grid-flow-col justify-items-center gap-5 border-t border-[#191919] pt-2;
 }
 
 .socials-container > a > svg {
-  @apply text-[1.25rem];
+  @apply text-[2.5rem];
 }
 
 .socials-container > a {

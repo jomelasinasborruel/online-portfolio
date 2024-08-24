@@ -11,7 +11,10 @@ type Experience =
   | "Prisma"
   | "GraphQL"
   | "SASS"
-  | "Tailwind";
+  | "Tailwind"
+  | "PostgreSQL"
+  | "ExpressJs"
+  | "JWT";
 
 type Project = "realPh" | "agentImage" | "access" | "pikme" | "fortiserv";
 
@@ -21,10 +24,12 @@ const AboutMe = () => {
   const experience: { title: Experience; description: string }[] = [
     { title: "React", description: "2 Years of Experience" },
     { title: "NextJs", description: "2 Years of Experience" },
+    { title: "PostgreSQL", description: "2 Years of Experience" },
     { title: "Prisma", description: "2 Years of Experience" },
-    { title: "GraphQL", description: "2 Years of Experience" },
     { title: "SASS", description: "2 Years of Experience" },
     { title: "Tailwind", description: "2 Years of Experience" },
+    { title: "ExpressJs", description: "Currently Exploring" },
+    { title: "JWT", description: "Currently Exploring" },
   ];
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
@@ -94,61 +99,60 @@ const AboutMe = () => {
           Tech Stack
         </p>
       </div>
-      {
-        <div className="grid w-full justify-items-center self-center bg-[#191919] pb-10">
-          {experience.map((item, index) => (
-            <div key={`${item}-${index}`} className="relative w-full">
-              <motion.div
-                initial={{ x: 100, opacity: 0, pointerEvents: "none" }}
-                viewport={{ once: true }}
-                whileInView={{
-                  x: 0,
-                  opacity: 100,
-                  borderBottom: ".5px solid #535353",
-                  pointerEvents: "auto",
-                  transition: {
-                    duration: 0.5,
-                    delay: 0.3,
-                  },
-                }}
-                className="font-semiboldjustify-items-center flex w-full select-none 
+      <div className="grid w-full justify-items-center self-center bg-[#191919] pb-10">
+        {experience.map((item, index) => (
+          <div key={`${item}-${index}`} className="relative w-full">
+            <motion.div
+              initial={{ x: 100, opacity: 0, pointerEvents: "none" }}
+              viewport={{ once: true }}
+              whileInView={{
+                x: 0,
+                opacity: 100,
+                borderBottom: ".5px solid #535353",
+                pointerEvents: "auto",
+                transition: {
+                  duration: 0.5,
+                  delay: 0.3,
+                },
+              }}
+              className="font-semiboldjustify-items-center flex w-full select-none 
                 justify-center bg-[#191919] px-6 py-1  text-5xl text-[#a9a9a9] sm:text-7xl md:text-9xl"
-              >
-                <div className="w-full max-w-[80rem] uppercase">
-                  <p
-                    className="w-fit"
-                    onMouseEnter={() => {
-                      setActiveExp(item.title);
-                    }}
-                    onMouseLeave={() => {
-                      setActiveExp(undefined);
-                    }}
-                  >
-                    {item.title}
-                  </p>
-                </div>
-              </motion.div>
-              <motion.div
-                animate={
-                  activeExp === item.title
-                    ? {
-                        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-                        color: "black",
-                        transition: { ease: "easeInOut", duration: 0.3 },
-                      }
-                    : {}
-                }
-                className="font-semiboldjustify-items-center pointer-events-none absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 justify-center overflow-hidden bg-white px-6 py-1  text-5xl text-[#a9a9a9] [clip-path:polygon(0_50%,_100%_50%,_100%_50%,_0_50%)] sm:text-7xl md:text-9xl"
-              >
-                <div className="relative flex w-full max-w-[80rem] items-center uppercase">
-                  <p className="w-fit max-sm:hidden">{item.title}</p>
-                  <p className="ml-4 font-acre text-sm">- {item.description}</p>
-                </div>
-              </motion.div>
-            </div>
-          ))}
-        </div>
-      }
+            >
+              <div className="w-full max-w-[80rem] uppercase">
+                <p
+                  className="w-fit"
+                  onMouseEnter={() => {
+                    setActiveExp(item.title);
+                  }}
+                  onMouseLeave={() => {
+                    setActiveExp(undefined);
+                  }}
+                >
+                  {item.title}
+                </p>
+              </div>
+            </motion.div>
+            <motion.div
+              animate={
+                activeExp === item.title
+                  ? {
+                      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+                      color: "black",
+                      transition: { ease: "easeInOut", duration: 0.3 },
+                    }
+                  : {}
+              }
+              className="font-semiboldjustify-items-center pointer-events-none absolute left-0 top-1/2 flex h-full w-full -translate-y-1/2 justify-center overflow-hidden bg-white px-6 py-1  text-5xl text-[#a9a9a9] [clip-path:polygon(0_50%,_100%_50%,_100%_50%,_0_50%)] sm:text-7xl md:text-9xl"
+            >
+              <div className="relative flex w-full max-w-[80rem] items-center uppercase">
+                <p className="w-fit max-sm:hidden">{item.title}</p>
+                <p className="ml-4 font-acre text-sm">- {item.description}</p>
+              </div>
+            </motion.div>
+          </div>
+        ))}
+      </div>
+
       <ProjectsParallax />
       <div className="flex h-fit w-full flex-col items-center bg-[#191919] p-10 max-lg:px-6">
         <p className="mb-4 w-full max-w-[1280px] text-xl text-white md:text-3xl">
