@@ -13,7 +13,7 @@ type Experience =
   | "SASS"
   | "Tailwind";
 
-type Project = "realPh" | "agentImage" | "access" | "pikme";
+type Project = "realPh" | "agentImage" | "access" | "pikme" | "fortiserv";
 
 const AboutMe = () => {
   const [activeExp, setActiveExp] = useState<Experience>();
@@ -31,6 +31,7 @@ const AboutMe = () => {
   const [currentProjects, setCurrentProject2] = useState<Project>("access");
   const [ownCurrentProjects, setOwnCurrentProjects] =
     useState<Project>("pikme");
+
   const projects: {
     key: Project;
     image: string;
@@ -42,7 +43,7 @@ const AboutMe = () => {
     {
       key: "access",
       image:
-        "https://res.cloudinary.com/jmcloudname/image/upload/c_scale,w_1080/online-portfolio/images/projects/mriz9ldpgwypt1alaoma.jpg",
+        "https://res.cloudinary.com/jmcloudname/image/upload/c_crop,g_north,h_2000,w_1920/c_limit,w_1440/online-portfolio/images/projects/mriz9ldpgwypt1alaoma.jpg",
       title: "Access",
       description: `Website for creating websites and listing presentations`,
       url: "https://access.com/",
@@ -60,7 +61,7 @@ const AboutMe = () => {
     {
       key: "agentImage",
       image:
-        "https://res.cloudinary.com/jmcloudname/image/upload/c_scale,w_1080/online-portfolio/images/projects/id15b0qztc9k8sjy0bni.jpg",
+        "https://res.cloudinary.com/jmcloudname/image/upload/c_crop,g_north,h_2000,w_1920/c_scale,w_1440/online-portfolio/images/projects/id15b0qztc9k8sjy0bni.jpg",
       title: "Agent Image",
       description: `Award-winning websites for the world's leading agents, teams and brokerages that empowers Realtors to generate leads and close deals. 8000+ 5-star reviews.`,
       url: "https://www.agentimage.com/",
@@ -73,6 +74,15 @@ const AboutMe = () => {
       title: "Pik-Me",
       description: `My simple browser game.`,
       url: "https://pik-me.vercel.app/",
+      isMine: true,
+    },
+    {
+      key: "fortiserv",
+      image:
+        "https://res.cloudinary.com/jmcloudname/image/upload/c_crop,g_north,h_2000,w_1703/c_scale,w_1440/online-portfolio/images/projects/kcoegappq7aedoyqvwli.jpg",
+      title: "Fortiserv",
+      description: `Business Mangement Company's Marketing Website`,
+      url: "https://fs-bmec.vercel.app/",
       isMine: true,
     },
   ];
@@ -230,7 +240,7 @@ const AboutMe = () => {
             ))}
         </div>
         <p className="mb-4 mt-10 w-full max-w-[1280px] text-xl text-white md:text-3xl">
-          My solo project (as of now).
+          My solo projects (as of now).
         </p>
         <div className="flex h-[43.75rem] w-full max-w-[80rem] flex-col overflow-hidden max-lg:space-y-4 lg:h-[48rem] lg:flex-row lg:space-x-4">
           {projects

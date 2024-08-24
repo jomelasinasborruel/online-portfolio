@@ -43,22 +43,11 @@ const NAVITEMS: NavItem[] = [
     label: "About Me",
     component: <AboutMe />,
   },
-  {
-    key: "projects",
-    label: "Projects",
-    component: <React.Fragment></React.Fragment>,
-  },
-
-  {
-    key: "myGallery",
-    label: "My Gallery",
-    component: <React.Fragment></React.Fragment>,
-  },
-  {
-    key: "devTips",
-    label: "Dev Tips",
-    component: <React.Fragment></React.Fragment>,
-  },
+  // {
+  //   key: "projects",
+  //   label: "Projects",
+  //   component: <React.Fragment></React.Fragment>,
+  // },
 ];
 
 const Home = () => {
@@ -113,12 +102,10 @@ const Home = () => {
             ? {
                 pointerEvents: "none",
                 opacity: 0,
-                transitionEnd: { display: "none" },
               }
             : {
                 pointerEvents: "auto",
                 opacity: 1,
-                display: "block",
                 transition: {
                   opacity: { delay: 0.5 },
                   pointerEvents: { delay: 0.5 },
@@ -206,93 +193,6 @@ const Home = () => {
         id="details-container"
         className={cx["details-container"]}
       >
-        {/* <motion.nav
-          initial={{ color: "#191919", width: 100, paddingInline: 0 }}
-          className="sticky top-0 z-[100] mx-auto flex w-fit justify-center pb-[10px]"
-          variants={variants}
-          animate={hasVisited ? "navBar" : ""}
-          onAnimationComplete={() => setIsStructureAnimationDone(true)}
-        >
-          <div className="flex w-full max-w-[80rem] justify-between">
-            <motion.div
-              initial={{ background: "transparent", color: "#a9a9a9" }}
-              variants={variants}
-              animate={hasVisited ? "navLogo" : ""}
-              className={cx["logo"]}
-            >
-              Jm
-            </motion.div>
-            <div className="hidden  grid-flow-col gap-10 lg:grid">
-              {NAVITEMS.map((item) => {
-                return (
-                  <motion.button
-                    key={item.key}
-                    initial={{ opacity: 0 }}
-                    animate={hasVisited ? "navButton" : ""}
-                    variants={variants}
-                    onClick={() => setCurrentPage(item.key)}
-                    whileHover={{ color: "white" }}
-                    className={clsx(
-                      "w-[5.5rem] text-[#a9a9a9] transition-colors duration-300",
-                      {
-                        "!text-white": item.key === currentPage,
-                      },
-                    )}
-                  >
-                    {item.label}
-                    <div
-                      className={clsx(
-                        "h-[0.375rem] w-0 border-b border-b-white transition-[width] duration-300",
-                        { "!w-full": item.key === currentPage },
-                      )}
-                    />
-                  </motion.button>
-                );
-              })}
-            </div>
-            <motion.button
-              onClick={() => setToggleMobileNav((prev) => !prev)}
-              initial={{ opacity: 0 }}
-              animate={hasVisited ? "navButton" : ""}
-              variants={variants}
-              className="block lg:hidden"
-            >
-              {toggleMobileNav ? (
-                <ImCross className="fill-white" />
-              ) : (
-                <GiHamburgerMenu className="fill-white" />
-              )}
-            </motion.button>
-            <motion.div
-              animate={
-                toggleMobileNav
-                  ? { x: -200, transition: { type: "just" } }
-                  : { x: 0 }
-              }
-              className="fixed right-[-200px] top-0 z-[100] mt-[74px] flex h-[calc(100dvh-74px)] w-[200px] flex-col bg-white lg:hidden"
-            >
-              {NAVITEMS.map((item) => {
-                return (
-                  <motion.button
-                    key={item.key}
-                    initial={{ opacity: 0 }}
-                    animate={hasVisited ? "navButton" : ""}
-                    variants={variants}
-                    onClick={() => setCurrentPage(item.key)}
-                    className={clsx(
-                      "w-full p-3 text-[#191919] transition-colors duration-300",
-                      {
-                        "bg-slate-500 !text-white": item.key === currentPage,
-                      },
-                    )}
-                  >
-                    {item.label}
-                  </motion.button>
-                );
-              })}
-            </motion.div>
-          </div>
-        </motion.nav> */}
         <div className={cx["content"]}>
           <div
             ref={contentRef}

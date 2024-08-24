@@ -19,12 +19,12 @@ export default function ProjectsParallax() {
   return (
     <div
       ref={ref}
-      className="relative grid h-[60dvh] w-full place-items-center overflow-hidden bg-black"
+      className="relative grid h-[60vh] w-full place-items-center overflow-hidden bg-black"
     >
       <AnimatePresence>
         <motion.div
           style={{ y: backgroundY }}
-          className="relative mt-[-50dvh] h-[100dvh] w-full"
+          className="relative mt-[-50vh] h-[100vh] w-full"
         >
           <Image
             fill
