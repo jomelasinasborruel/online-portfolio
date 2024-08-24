@@ -96,19 +96,17 @@ const Home = () => {
         key="intro-container-key"
         className={clsx(
           "fixed left-0 top-0 z-10 h-screen w-screen bg-[#191919]",
+          { "pointer-events-none": scrollY > 900 },
         )}
         animate={
           scrollY > 900
             ? {
-                pointerEvents: "none",
                 opacity: 0,
               }
             : {
-                pointerEvents: "auto",
                 opacity: 1,
                 transition: {
                   opacity: { delay: 0.5 },
-                  pointerEvents: { delay: 0.5 },
                 },
               }
         }
