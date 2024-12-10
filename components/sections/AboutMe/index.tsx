@@ -78,7 +78,7 @@ const AboutMe = () => {
         "https://res.cloudinary.com/jmcloudname/image/upload/f_auto,q_auto/v1/online-portfolio/images/projects/lpj4owhep9oeohwtl006",
       title: "Pik-Me",
       description: `My simple browser game.`,
-      url: "https://pik-me.vercel.app/",
+      url: "https://pik-me.borruel.pro/",
       isMine: true,
     },
     {
@@ -87,7 +87,7 @@ const AboutMe = () => {
         "https://res.cloudinary.com/jmcloudname/image/upload/c_crop,g_north,h_2000,w_1703/c_scale,w_1440/online-portfolio/images/projects/kcoegappq7aedoyqvwli.jpg",
       title: "Fortiserv",
       description: `Business Mangement Company's Marketing Website`,
-      url: "https://fs-bmec.vercel.app/",
+      url: "https://fortiserv.borruel.pro/",
       isMine: true,
     },
   ];
