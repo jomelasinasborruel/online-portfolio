@@ -5,13 +5,20 @@ import Link from "next/link";
 // Components
 import { Model } from "@/models/glasses";
 import { Canvas } from "@react-three/fiber";
+import {
+  Variants,
+  animate,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 // Utils
 import { delay } from "lodash";
 import clsx from "clsx";
 import zenScroll from "zenscroll";
 // SVGs
 import { GrInstagram } from "react-icons/gr";
-import { ImFacebook, ImLinkedin2 } from "react-icons/im";
+import { ImCross, ImFacebook, ImLinkedin2 } from "react-icons/im";
 import { BsArrowBarDown } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
@@ -20,81 +27,95 @@ import cx from "./MainPage.module.scss";
 import { useProgress } from "@react-three/drei";
 import ReactLoading from "react-loading";
 import Marquee from "react-fast-marquee";
+import AboutMe from "@/components/sections/AboutMe";
+import { GiHamburgerMenu } from "react-icons/gi";
+import IntroductionParallax from "@/components/IntroductionParallax";
+
+interface NavItem {
+  key: "aboutMe" | "projects" | "logo" | "myGallery" | "devTips";
+  label: string;
+  component: React.JSX.Element;
+}
+
+const NAVITEMS: NavItem[] = [
+  {
+    key: "aboutMe",
+    label: "About Me",
+    component: <AboutMe />,
+  },
+  // {
+  //   key: "projects",
+  //   label: "Projects",
+  //   component: <React.Fragment></React.Fragment>,
+  // },
+];
 
 const Home = () => {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollY, setScrollY] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSectionRef, videoSectionInviewRef] = useInView();
   const loadingProgress = useProgress();
+  const [hasVisited, setHadVisited] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [toggleMobileNav, setToggleMobileNav] = useState(false);
   const [mainRef, mainInview] = useInView({
     threshold: 1,
   });
+  const [currentPage, setCurrentPage] = useState<NavItem["key"]>("aboutMe");
+  const [isStructureAnimationDone, setIsStructureAnimationDone] =
+    useState(false);
   const [hoveredSocial, setHoveredSocial] = useState<number>();
+  const introRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: ffSpan } = useScroll({
+    target: introRef,
+    offset: ["start start", "end start"],
+  });
 
   const handleScroll = () => {
     zenScroll.toY(1100, 2000);
     delay(() => {
-      zenScroll.toY(1200, 500);
+      zenScroll.toY(1400, 500);
     }, 3000);
+
     delay(() => {
-      zenScroll.toY(window.scrollY + window.innerHeight, 1000);
-    }, 4700);
+      zenScroll.toY(1800, 500);
+    }, 4000);
+    delay(() => {
+      zenScroll.toY(2000 + window.innerHeight * (1 / 3), 1500);
+    }, 5500);
   };
   const handleScoll = () => {
     setScrollY(window.scrollY);
-    if (window.scrollY > 1600 || window.scrollY < 0) return;
+    if (window.scrollY > 1000 || window.scrollY < 0) return;
     setScrollTop(0.314 * (window.scrollY / 100));
   };
 
-  // const renderGlassModel = (
-  //   <React.Fragment>
-  //     <Canvas
-  //       id="glasses-canvas"
-  //       className={clsx(cx["model-canvas"], {
-  //         "!opacity-0": videoSectionInviewRef || mainInview,
-  //       })}
-  //     >
-  //       <Suspense fallback={null}>
-  //         <ambientLight />
-  //         <Model scrollTop={scrollTop} />
-  //       </Suspense>
-  //     </Canvas>
-  //   </React.Fragment>
-  // );
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScoll);
-    setScrollTop(0.314 * (window.scrollY / 100));
-    scrollTo({ top: 0 });
-
-    return () => window.removeEventListener("scroll", handleScoll);
-  }, []);
-
-  // Optimizes the loading
-  if (loadingProgress.progress !== 100)
-    return (
-      <main
-        className={clsx(cx["main"], {
-          "max-h-screen overflow-hidden": loadingProgress.progress !== 100,
-        })}
-      >
-        <div className="top-1/2 left-1/2 fixed -translate-y-1/2 -translate-x-1/2 ">
-          <ReactLoading type="bubbles" delay={500} color="#a9a9a9" />
-        </div>
-      </main>
-    );
-
-  return (
-    <main className={clsx(cx["main"])}>
-      <div
-        className={clsx(cx["introduction--container"], {
-          "pointer-events-none": videoSectionInviewRef || mainInview,
-        })}
+  const renderIntroduction = (
+    <div ref={introRef} className={clsx(cx["introduction--container"])}>
+      <motion.div
+        key="intro-container-key"
+        className={clsx(
+          "fixed left-0 top-0 z-10 h-screen w-screen bg-[#191919]",
+          { "pointer-events-none": scrollY > 900 },
+        )}
+        animate={
+          scrollY > 900
+            ? {
+                opacity: 0,
+              }
+            : {
+                opacity: 1,
+                transition: {
+                  opacity: { delay: 0.5 },
+                },
+              }
+        }
       >
         <Marquee
           autoFill
-          className="!fixed w-full h-screen top-0 left-0 opacity-5 select"
+          className={clsx(
+            "select pointer-events-none !fixed left-0 top-0 h-screen w-full opacity-5 transition-opacity duration-500",
+          )}
           speed={10}
         >
           <p className={clsx(cx["marquee-text"])}>
@@ -107,7 +128,7 @@ const Home = () => {
         <Canvas
           id="glasses-canvas"
           className={clsx(cx["model-canvas"], {
-            "!opacity-0": videoSectionInviewRef || mainInview,
+            "!pointer-events-none !opacity-0": scrollY > 900,
           })}
         >
           <Suspense fallback={null}>
@@ -119,56 +140,67 @@ const Home = () => {
         <button
           onClick={handleScroll}
           className={clsx(cx["btn-scroll"], {
-            "!opacity-0 pointer-events-none": scrollY > 200,
+            "pointer-events-none !opacity-0": scrollY > 200,
           })}
         >
-          <p>Click to scroll</p>
+          <p className="font-acre">Click to scroll</p>
 
           <BsArrowBarDown />
         </button>
-
-        <div
-          ref={videoSectionRef}
-          className={clsx(cx["video-section"], {
-            "!opacity-100 !pointer-events-auto":
-              videoSectionInviewRef && !mainInview,
-          })}
-        >
-          <video
-            autoPlay
-            playsInline
-            loop
-            muted
-            ref={videoRef}
-            className={clsx(cx["video"])}
-            src="https://res.cloudinary.com/jmcloudname/video/upload/f_auto:video,q_auto/v1/online-portfolio/videos/v9xldgfnoau5kpmzv6uk"
-          />
-          <p className={clsx(cx["video-caption"])}>
-            <span
-              className={clsx("transition-colors duration-500", {
-                "text-white": scrollY >= 1100 && scrollY < 1200,
-              })}
-            >
-              Rest in reason,
-            </span>{" "}
-            <span
-              className={clsx("transition-colors duration-500", {
-                "text-white": scrollY >= 1200 && scrollY < 1300,
-              })}
-            >
-              move in passion.
-            </span>
-          </p>
-        </div>
+      </motion.div>
+      <div className={clsx(cx["video-section"], {})}>
+        <IntroductionParallax scrollY={scrollY} />
       </div>
-      <div ref={mainRef} className={clsx(cx["proxy-last-section"])}></div>
-      <div
-        className={clsx(cx["main-section"], {
-          "!opacity-100 !pointer-events-auto": mainInview,
+    </div>
+  );
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScoll);
+    setScrollTop(0.314 * (window.scrollY / 100));
+    // scrollTo({ top: 0 });
+
+    return () => window.removeEventListener("scroll", handleScoll);
+  }, []);
+
+  useEffect(() => {
+    if (hasVisited || !mainInview) return;
+    setHadVisited(true);
+  }, [mainInview]);
+
+  // Optimizes the loading
+  if (loadingProgress.progress !== 100)
+    return (
+      <main
+        className={clsx(cx["main"], {
+          "max-h-screen overflow-hidden": loadingProgress.progress !== 100,
         })}
       >
-        <div className={cx["details-container"]}>
-          <p className={cx["logo"]}>JM</p>
+        <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 ">
+          <ReactLoading type="bubbles" delay={500} color="#a9a9a9" />
+        </div>
+      </main>
+    );
+
+  return (
+    <main className={clsx(cx["main"])}>
+      {renderIntroduction}
+
+      <motion.div
+        key="details-container-key"
+        ref={mainRef}
+        id="details-container"
+        className={cx["details-container"]}
+      >
+        <div className={cx["content"]}>
+          <div
+            ref={contentRef}
+            key={currentPage}
+            className={cx["content-wrapper"]}
+          >
+            {NAVITEMS.find((item) => item.key === currentPage)?.component}
+          </div>
+        </div>
+        <footer className="pb-8 text-[#a9a9a9]">
           <div className={cx["socials-container"]}>
             {SOCIALS.map((social, index) => (
               <Link
@@ -186,8 +218,8 @@ const Home = () => {
               </Link>
             ))}
           </div>
-        </div>
-      </div>
+        </footer>
+      </motion.div>
     </main>
   );
 };
@@ -210,7 +242,7 @@ const SOCIALS: {
     target: "_blank",
   },
   {
-    url: "https://www.instagram.com/jmmmmm_07/",
+    url: "https://www.linkedin.com/in/jomel-borruel-a42096218/",
     icons: <ImLinkedin2 />,
     target: "_blank",
   },

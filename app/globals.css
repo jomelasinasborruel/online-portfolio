@@ -7,7 +7,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
 }
 
 body::-webkit-scrollbar-thumb,
@@ -26,5 +26,9 @@ body::-webkit-scrollbar-thumb:hover {
     font-family: "Earth Orbiter";
     src: local("Earth Orbiter"),
       url("/fonts/earthorbiter.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: Acre;
+    src: url("/fonts/acre.otf") format("opentype");
   }
 }
